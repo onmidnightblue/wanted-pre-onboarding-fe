@@ -8,6 +8,9 @@ const GlobalStyles = createGlobalStyle`
    outline:none;
    border:none;
  }
+ label {
+  font-size: 14px;
+ }
 `;
 
 export default GlobalStyles;
