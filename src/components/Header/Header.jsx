@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 import { WiDaySunny } from 'react-icons/wi'
+import { Link, useNavigate } from 'react-router-dom';
+import LoggedContext from '../../store/loggedContext';
 
 const Styles = {
   Header: styled.header`
@@ -21,6 +23,9 @@ const Styles = {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    div {
+      cursor: pointer;
+    }
     input {
       background-color: #eee;
       padding: 6px;
@@ -35,14 +40,24 @@ const Styles = {
 }
 
 const Header = () => {
+  const navigate = useNavigate()
+  const logged = useContext(LoggedContext)
+
+  const logoutHandler = () => {
+    logged.onLogout()
+    navigate('/login')
+  }
+
   return (
     <Styles.Header>
       <Styles.Wrap>
         <div>
-          <WiDaySunny size={24}/>
+          <Link to='/main'>
+            <WiDaySunny size={24}/>
+          </Link>
         </div>
         <input />
-        <div>
+        <div onClick={logoutHandler}>
           <RiLogoutBoxRLine size={18}/>
         </div>
       </Styles.Wrap>
