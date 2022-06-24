@@ -7,8 +7,8 @@ const Styles = {
   Wrap: styled.div`
     width: 100%;
     background-color: #fafafa;
-  `
-}
+  `,
+};
 
 const MainPage = () => {
   return (

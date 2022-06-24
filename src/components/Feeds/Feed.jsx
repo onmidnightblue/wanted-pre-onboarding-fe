@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FeedComment from './FeedComment';
+import LoadingSpinner from '../CommonUI/LoadingSpinner';
 
 const Styles = {
   Card: styled.div`
@@ -27,20 +28,35 @@ const Styles = {
         max-width: 100%;
       }
     }
-  `
-}
+  `,
+};
 
 const Feed = (props) => {
+  const [onload, setOnload] = useState(false);
+
+  const loadingHandler = () => {
+    setOnload(true);
+  };
+
   return (
-    <Styles.Card>
-      <div className='title'>
-        <h3>{props.username}</h3>
-      </div>
-      <div className='image'>
-        <img src={props.image} />
-      </div>
-      <FeedComment />
-    </Styles.Card>
+    <>
+      <Styles.Card style={onload ? { display: 'block' } : { display: 'none' }}>
+        <div className="title">
+          <h3>{props.username}</h3>
+        </div>
+        <div className="image">
+          <img
+            src={props.image}
+            alt={props.username}
+            onLoad={() => {
+              loadingHandler();
+            }}
+          />
+        </div>
+        <FeedComment />
+      </Styles.Card>
+      {!onload && <LoadingSpinner />}
+    </>
   );
 };
 

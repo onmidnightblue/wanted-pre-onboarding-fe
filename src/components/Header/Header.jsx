@@ -52,7 +52,7 @@ const Header = () => {
     <Styles.Header>
       <Styles.Wrap>
         <div>
-          <Link to='/main'>
+          <Link to='/'>
             <WiDaySunny size={24}/>
           </Link>
         </div>

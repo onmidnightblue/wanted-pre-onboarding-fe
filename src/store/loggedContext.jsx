@@ -1,53 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import { useCallback } from 'react'
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const LoggedContext = React.createContext({
-  isLogin: false,
   onLogout: () => {},
-  onLogin: (email, password) => {}
-})
+  onLogin: () => {},
+});
 
-export const LoggedContextProvider = props => {
-  const [isLogin, setIsLogin] = useState(false)
+export const LoggedContextProvider = (props) => {
+  const navigate = useNavigate();
 
-  // 데이터베이스에 사용자의 이메일과 비밀번호가 존재하는지 확인
-  console.log(isLogin)
-
-  // storage에 정보가 있는지 확인
+  // storage에 정보가 있는지 확인해서 페이지 전환
   useEffect(() => {
-    const loginInfomationCheck = localStorage.getItem('isLogin')
+    const loginInfomationCheck = localStorage.getItem('isLogin');
     if (loginInfomationCheck === 'Y') {
-      setIsLogin(true)
+      navigate('/');
     } else {
-      setIsLogin(false)
+      navigate('/login');
     }
-  }, [])
+  }, []);
 
   // login
-  const loginHandler = useCallback(() => {
-    console.log('login')
-    localStorage.setItem('isLogin', 'Y')
-    setIsLogin(true)
-  })
+  const loginHandler = () => {
+    localStorage.setItem('isLogin', 'Y');
+    navigate('/');
+  };
 
   // logout
-  const logoutHandler = useCallback(() => {
-    console.log('logout')
-    localStorage.removeItem('isLogin')
-    setIsLogin(false)
-  }, [])
+  const logoutHandler = () => {
+    localStorage.removeItem('isLogin');
+  };
 
   return (
-    <LoggedContext.Provider 
-    value={{
-      isLogin: isLogin,
-      onLogin: loginHandler,
-      onLogout: logoutHandler
-    }}
-  >
-    {props.children}
-  </LoggedContext.Provider>
-  )
-}
+    <LoggedContext.Provider
+      value={{
+        onLogin: loginHandler,
+        onLogout: logoutHandler,
+      }}
+    >
+      <Outlet />
+    </LoggedContext.Provider>
+  );
+};
 
-export default LoggedContext
+export default LoggedContext;

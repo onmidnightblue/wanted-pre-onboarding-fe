@@ -1,21 +1,22 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
-import NotFoundPage from './pages/NotFoundPage'
-import LoggedContext, { LoggedContextProvider } from './store/loggedContext';
+import NotFoundPage from './pages/NotFoundPage';
+import { LoggedContextProvider } from './store/loggedContext';
 
 function App() {
   return (
-    <LoggedContextProvider>
+    <BrowserRouter>
       <Routes>
-        <Route index path='/' element={<MainPage />}/>
-        <Route path='/login' element={<LoginPage />}/>
-        <Route path='*' element={<NotFoundPage />} />
+        <Route element={<LoggedContextProvider />}>
+          <Route index path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Routes>
-    </LoggedContextProvider>
-      
-  )
+    </BrowserRouter>
+  );
 }
 
 export default App;

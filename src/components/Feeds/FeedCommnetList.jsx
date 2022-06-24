@@ -9,6 +9,10 @@ const Styles = {
   ul {
     li {
       font-size: 14px;
+      span {
+        font-size: 10px;
+        font-weight: bold;
+      }
     }
   }
 `
@@ -22,7 +26,7 @@ const FeedCommnetList = (props) => {
         <li
           key={data.id}
         >
-          <IoIosReturnRight size={16}/>{data.content}
+          <span>comment</span> {data.content}
         </li>
       ))}
     </ul>
