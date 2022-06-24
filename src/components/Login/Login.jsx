@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { CheckEmail, CheckPassword } from '../../utils/regex';
-import Input from '../UI/Input';
+import Input from '../CommonUI/Input';
 import LoggedContext from '../../store/loggedContext';
 import axios from 'axios';
 
@@ -55,16 +55,11 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const vaildComplete = setTimeout(() => {
-      if (validEmail && validPassword) {
-        setValidForm(true);
-      } else {
-        setValidForm(false);
-      }
-    }, 500);
-    return () => {
-      clearTimeout(vaildComplete);
-    };
+    if (validEmail && validPassword) {
+      setValidForm(true);
+    } else {
+      setValidForm(false);
+    }
   }, [validEmail, validPassword]);
 
   // submit
